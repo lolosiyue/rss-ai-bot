@@ -8,9 +8,9 @@ on:
   # 允許手動觸發
   workflow_dispatch:
   
-  # Push 到 main 時也執行（測試用）
+  # Push 到 master 時也執行（測試用）
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   rss-bot:
