@@ -1,0 +1,53 @@
+name: RSS AI Bot
+
+on:
+  # 定時執行（每小時）
+  schedule:
+    - cron: '0 */24 * * *'  # 每 24 小時的第 0 分執行
+  
+  # 允許手動觸發
+  workflow_dispatch:
+  
+  # Push 到 main 時也執行（測試用）
+  push:
+    branches: [ main ]
+
+jobs:
+  rss-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10  # 最多執行 10 分鐘
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v3
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'  # 快取 pip 套件
+      
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: 🤖 Run RSS Bot
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+          GIST_ID: ${{ secrets.GIST_ID }}
+        run: |
+          python main.py
+      
+      - name: 📊 Upload logs (if failed)
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: error-logs
+          path: |
+            *.log
+          retention-days: 7

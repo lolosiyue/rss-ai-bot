@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 測試檔案
+test_*.py
+*.log
+
+# 本地設定
+.env
+local_config.json
+read_articles.json
+
+# macOS
+.DS_Store

@@ -1,0 +1,49 @@
+{
+    "feeds": [
+        {
+            "name": "Hacker News",
+            "url": "https://news.ycombinator.com/rss",
+            "category": "科技"
+        },
+        {
+            "name": "TechCrunch",
+            "url": "https://techcrunch.com/feed/",
+            "category": "科技"
+        },
+        {
+            "name": "The Verge",
+            "url": "https://www.theverge.com/rss/index.xml",
+            "category": "科技"
+        },
+        {
+            "name": "Ars Technica",
+            "url": "https://feeds.arstechnica.com/arstechnica/index",
+            "category": "科技"
+        },
+        {
+            "name": "MIT Tech Review",
+            "url": "https://www.technologyreview.com/feed/",
+            "category": "科技"
+        },
+        {
+            "name": "4Gamers",
+            "url": "https://www.4gamers.com.tw/rss/latest-news",
+            "category": "遊戲"
+        },
+        {
+            "name": "巴哈姆特電玩資訊站",
+            "url": "https://gnn.gamer.com.tw/rss.xml",
+            "category": "遊戲"
+        },
+        {
+            "name": "Unwire HK",
+            "url": "http://unwire.hk/feed",
+            "category": "科技"
+        },
+        {
+            "name": "香港電腦資訊網",
+            "url": "https://www.hkepc.com/feed",
+            "category": "科技"
+        }
+    ]
+}
