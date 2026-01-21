@@ -54,7 +54,7 @@ class AISummarizer:
     def _summarize_gemini(self, title: str, content: str) -> Optional[str]:
         """使用 Google Gemini API"""
         try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={self.gemini_key}"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={self.gemini_key}"
             
             prompt = f"""請用繁體中文總結以下文章的重點，要求：
 1. 不超過 100 字
