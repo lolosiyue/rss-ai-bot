@@ -68,7 +68,8 @@ class DiscordNotifier:
 
         payload = {
             "username": "RSS AI Bot",
-            "embeds": embeds
+            "embeds": embeds,
+            "avatar_url": "https://cdn-icons-png.flaticon.com/512/2111/2111463.png"
         }
 
         try:
