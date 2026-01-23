@@ -28,25 +28,42 @@ class DiscordNotifier:
             time.sleep(1)
 
     def _send_batch(self, batch_articles):
-        """發送單批文章"""
+        """發送單批文章（含錯誤防護）"""
         embeds = []
         for article in batch_articles:
-            title = article.get('title', '無標題')
-            summary = article.get('summary', '無摘要')
+            # 1. 確保基本欄位有值，且強制轉為字串
+            title = str(article.get('title', '無標題'))
+            if not title: title = "無標題"
             
-            # [修復] 這裡調用顏色判斷函式
+            summary = str(article.get('summary', '無摘要'))
+            if not summary: summary = "無摘要"
+            
+            # 強制截斷以符合 Discord 限制 (Description max 4096)
+            summary = summary[:4000]
+
+            # 2. 獲取連結 (如果為空則不加入)
+            link = article.get('link', '')
+            
+            # 3. 獲取顏色
             color = self._get_color(title + summary)
 
+            # 建構 Embed 物件
             embed = {
                 "title": title,
-                "url": article.get('link', ''),
                 "description": summary,
-                "color": color,  # 使用動態顏色
+                "color": color,
                 "footer": {
                     "text": f"來源: {article.get('source', 'RSS')} | AI: DeepSeek-V3"
-                },
-                "timestamp": article.get('published', '')
+                }
             }
+            
+            # 只有當連結存在且以 http 開頭時才加入，避免 400 錯誤
+            if link and link.startswith('http'):
+                embed["url"] = link
+
+            # 注意：這裡刻意移除了 "timestamp" 欄位
+            # 因為 RSS 的時間格式混亂，容易導致 Discord 拒收整個請求 (400 Error)
+            
             embeds.append(embed)
 
         payload = {
@@ -55,17 +72,23 @@ class DiscordNotifier:
         }
 
         try:
+            # 加入 print 以便除錯，如果再次失敗可以看到發送了什麼
+            print(f"DEBUG Payload: {json.dumps(payload, ensure_ascii=False)}") 
+            
             response = requests.post(
                 self.webhook_url, 
                 data=json.dumps(payload),
                 headers={"Content-Type": "application/json"},
                 timeout=10
             )
+            
             if response.status_code not in [200, 204]:
                 print(f"❌ Discord 發送失敗 ({response.status_code}): {response.text}")
+            else:
+                print(f"✅ 成功發送一批 ({len(embeds)} 則)")
+                
         except Exception as e:
             print(f"❌ Discord 連線錯誤: {e}")
-
     def _get_color(self, text):
         """
         [新增] 根據關鍵字決定 Embed 顏色
