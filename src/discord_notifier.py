@@ -74,7 +74,7 @@ class DiscordNotifier:
 
         try:
             # 加入 print 以便除錯，如果再次失敗可以看到發送了什麼
-            print(f"DEBUG Payload: {json.dumps(payload, ensure_ascii=False)}") 
+            #print(f"DEBUG Payload: {json.dumps(payload, ensure_ascii=False)}") 
             
             response = requests.post(
                 self.webhook_url, 
