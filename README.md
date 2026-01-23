@@ -23,6 +23,7 @@
 新增以下 Secrets：
 
 - `DISCORD_WEBHOOK_URL`: Discord Webhook URL
+- `DEEPSEEK_API_KEY`: Deepseek API Key
 - `GEMINI_API_KEY`: Google Gemini API Key
 - `GIST_TOKEN`: GitHub Personal Access Token
 - `GIST_ID`: GitHub Gist ID

@@ -44,7 +44,7 @@ def check_env_vars():
     """檢查必要的環境變數"""
     required_vars = {
         'DISCORD_WEBHOOK_URL': 'Discord Webhook URL',
-        'GEMINI_API_KEY': 'Google Gemini API Key',
+        'DEEPSEEK_API_KEY': 'DeepSeek API Key',
         'GIST_TOKEN': 'GitHub Personal Access Token',
         'GIST_ID': 'GitHub Gist ID'
     }
@@ -64,9 +64,7 @@ def main():
     """主程式"""
     start_time = datetime.now()
     print_header()
-    
-    # 檢查環境變數
-    check_env_vars()
+    check_env_vars() # 檢查新的變數
     
     # 載入設定
     config = load_config()
@@ -152,7 +150,6 @@ def main():
         
         # 發送錯誤通知
         notifier.send_error(str(e))
-        
         sys.exit(1)
 
 if __name__ == '__main__':
