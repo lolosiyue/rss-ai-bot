@@ -1,6 +1,16 @@
 {
     "feeds": [
         {
+            "name": "アニメ!アニメ!",
+            "url": "https://animeanime.jp/rss20/index.rdf",
+            "category": "動漫"
+        },
+        {
+            "name": "Anime News Network",
+            "url": "https://www.animenewsnetwork.com/news/rss.xml?ann-edition=us",
+            "category": "動漫"
+        },
+        {
             "name": "4Gamers",
             "url": "https://www.4gamers.com.tw/rss/latest-news",
             "category": "遊戲"
