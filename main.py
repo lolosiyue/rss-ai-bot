@@ -8,6 +8,7 @@ import json
 import os
 import sys
 from datetime import datetime
+import time
 from src.rss_fetcher import RSSFetcher
 from src.ai_summarizer import AISummarizer
 from src.discord_notifier import DiscordNotifier
@@ -45,6 +46,7 @@ def check_env_vars():
     required_vars = {
         'DISCORD_WEBHOOK_URL': 'Discord Webhook URL',
         'DEEPSEEK_API_KEY': 'DeepSeek API Key',
+        'NVIDIA_API_KEY': 'NVIDIA API Key',
         'GIST_TOKEN': 'GitHub Personal Access Token',
         'GIST_ID': 'GitHub Gist ID'
     }
@@ -115,6 +117,7 @@ def main():
         max_articles = min(len(new_articles), 60)
         
         for i, article in enumerate(new_articles[:max_articles], 1):
+            time.sleep(2)
             print(f"\n[{i}/{max_articles}] {article['title'][:60]}...")
             print(f"   來源：{article['source']}")
             

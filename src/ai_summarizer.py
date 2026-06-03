@@ -1,20 +1,21 @@
-"""AI 總結模組 - DeepSeek 專用版"""
+"""AI 總結模組 - NVIDIA 專用版"""
 
 import os
 import re
 from typing import Optional
-from openai import OpenAI  # [修改] 引入 OpenAI 庫兼容 DeepSeek
+from openai import OpenAI  # NVIDIA NIM 支援並相容 OpenAI SDK
 
 class AISummarizer:
-    """AI 文章總結器（DeepSeek 版）"""
+    """AI 文章總結器（NVIDIA 版）"""
     
     def __init__(self):
-        # [修改] 初始化 DeepSeek 客戶端
+        # [修改] 初始化 NVIDIA 客戶端與端點
         self.client = OpenAI(
-            api_key=os.getenv('DEEPSEEK_API_KEY'),
-            base_url="https://api.deepseek.com"
+            api_key=os.getenv('NVIDIA_API_KEY'),
+            base_url="https://integrate.api.nvidia.com/v1"
         )
-        self.model = "deepseek-chat"  # DeepSeek V3
+        # 選用 NVIDIA 平台提供的免費標準優質模型
+        self.model = "meta/llama-3.3-70b-instruct" 
         
         # 統計
         self.success_count = 0
@@ -26,11 +27,11 @@ class AISummarizer:
         # 清理 HTML 標籤
         content = self._clean_html(content)
         
-        # [修改] 截取內容 (DeepSeek 支援 64k context，這裡放寬到 5000 字以提升準確度)
+        # 截取內容保持在 5000 字以內
         content = content[:5000]
         
         try:
-            # [修改] 統一使用 OpenAI SDK 格式調用 DeepSeek
+            # 呼叫 NVIDIA API
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[
@@ -53,33 +54,7 @@ class AISummarizer:
             return summary
 
         except Exception as e:
-            print(f"❌ DeepSeek API 錯誤: {e}")
+            print(f"❌ NVIDIA API 錯誤: {e}")
             self.fail_count += 1
             # 失敗時返回簡單截斷
             return self._simple_summary(content)
-    
-    # ---------------------------------------------------------
-    # 以下輔助函式保持不變
-    # ---------------------------------------------------------
-
-    def _simple_summary(self, content: str) -> str:
-        """簡單摘要（當 AI API 失敗時）"""
-        summary = content[:150].strip()
-        if len(content) > 150:
-            summary += "..."
-        return summary
-    
-    def _clean_html(self, text: str) -> str:
-        """清理 HTML 標籤"""
-        text = re.sub(r'<[^>]+>', '', text)
-        text = re.sub(r'\s+', ' ', text)
-        return text.strip()
-    
-    def print_stats(self):
-        """印出統計資訊"""
-        total = self.success_count + self.fail_count
-        if total > 0:
-            success_rate = (self.success_count / total) * 100
-            print(f"\n📊 AI 總結統計：")
-            print(f"   成功：{self.success_count}/{total} ({success_rate:.1f}%)")
-            print(f"   失敗：{self.fail_count}/{total}")

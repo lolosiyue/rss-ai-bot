@@ -27,6 +27,7 @@
 - `GEMINI_API_KEY`: Google Gemini API Key
 - `GIST_TOKEN`: GitHub Personal Access Token
 - `GIST_ID`: GitHub Gist ID
+- `NVIDIA_API_KEY`: NVIDIA API Key
 
 ### 3. 啟用 Actions
 
