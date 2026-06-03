@@ -58,3 +58,25 @@ class AISummarizer:
             self.fail_count += 1
             # 失敗時返回簡單截斷
             return self._simple_summary(content)
+        
+    def _simple_summary(self, content: str) -> str:
+        """簡單摘要（當 AI API 失敗時）"""
+        summary = content[:150].strip()
+        if len(content) > 150:
+            summary += "..."
+        return summary
+    
+    def _clean_html(self, text: str) -> str:
+        """清理 HTML 標籤"""
+        text = re.sub(r'<[^>]+>', '', text)
+        text = re.sub(r'\s+', ' ', text)
+        return text.strip()
+    
+    def print_stats(self):
+        """印出統計資訊"""
+        total = self.success_count + self.fail_count
+        if total > 0:
+            success_rate = (self.success_count / total) * 100
+            print(f"\n📊 AI 總結統計：")
+            print(f"   成功：{self.success_count}/{total} ({success_rate:.1f}%)")
+            print(f"   失敗：{self.fail_count}/{total}")
