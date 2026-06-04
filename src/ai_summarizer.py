@@ -28,9 +28,9 @@ class AISummarizer:
         # 清理 HTML 標籤
         content = self._clean_html(content)
         
-        # 🔥 【優化 1】將截取字數從 5000 降到 2000！
+        # 🔥 【優化 1】將截取字數從 5000 降到 3500！
 
-        content = content[:2000]
+        content = content[:3500]
         
         # 🔥 【優化 2】智慧重試機制設定
         max_retries = 3      # 最多重試 3 次
@@ -43,7 +43,7 @@ class AISummarizer:
                     messages=[
                         {
                             "role": "system", 
-                            "content": "你是專業的新聞摘要助手。請用繁體中文總結文章重點，要求：1. 不超過 100 字 2. 保留關鍵技術參數或事件結果 3. 語氣客觀。"
+                            "content": "你是專業的新聞摘要助手。請用繁體中文總結文章重點，要求：1. 不超過 100 字 2. 保留關鍵技術參數或事件結果 3. 語氣客觀。 4. 翻譯成繁體中文，專有名詞保留原文"
                         },
                         {
                             "role": "user", 
