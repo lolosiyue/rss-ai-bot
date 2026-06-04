@@ -110,11 +110,11 @@ def main():
         
         # 4. AI 總結
         print(f"\n{'─' * 60}")
-        print(f"🤖 開始 AI 總結（最多處理 60 篇）...")
+        print(f"🤖 開始 AI 總結（最多處理 10 篇）...")
         print(f"{'─' * 60}")
         
         summarized_articles = []
-        max_articles = min(len(new_articles), 60)
+        max_articles = min(len(new_articles), 10)
         
         for i, article in enumerate(new_articles[:max_articles], 1):
             time.sleep(2)
