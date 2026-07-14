@@ -53,7 +53,7 @@ class DiscordNotifier:
                 "description": summary,
                 "color": color,
                 "footer": {
-                    "text": f"來源: {article.get('source', 'RSS')} | AI: NVIDIA Llama-3.3"
+                    "text": f"來源: {article.get('source', 'RSS')} | AI: DeepSeek"
                 }
             }
             
