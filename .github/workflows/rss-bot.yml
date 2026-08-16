@@ -1,9 +1,9 @@
 name: RSS AI Bot
 
 on:
-  # 定時執行（每日半夜一次，對應 Asia/Hong_Kong 的 00:00）
+  # 定時執行（每日早上一次，對應 Asia/Hong_Kong 的 08:00）
   schedule:
-    - cron: '0 16 * * *'  # UTC 16:00 = Asia/Hong_Kong 00:00
+    - cron: '0 0 * * *'  # UTC 00:00 = Asia/Hong_Kong 08:00
   
   # 允許手動觸發
   workflow_dispatch:
