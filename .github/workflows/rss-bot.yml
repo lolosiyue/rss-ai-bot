@@ -1,9 +1,9 @@
 name: RSS AI Bot
 
 on:
-  # 定時執行（每日早上一次，對應 Asia/Hong_Kong 的 07:00）
+  # 定時執行（每日一次，對應 Asia/Hong_Kong 的 04:00，避開 DeepSeek 高峰/雙倍計價時段）
   schedule:
-    - cron: '23 23 * * *'
+    - cron: '0 20 * * *'
 jobs:
   rss-bot:
     runs-on: ubuntu-latest
