@@ -126,7 +126,7 @@ def main():
                 read_articles.append(article['id'])
                 print(f"   ✅ 總結：{summary[:80]}...")
             else:
-                print(f"   ⚠️ 總結失敗")
+                print("   ⚠️ 略過，未標記已讀")
         
         # 印出統計
         summarizer.print_stats()
